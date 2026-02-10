@@ -108,10 +108,8 @@ See the [Building](#building) section below.
 
 | CRON Expression | Description       |
 | --------------- | ----------------- |
-| `0 0 * * *`     | Daily at midnight |
-| `0 */6 * * *`   | Every 6 hours     |
-| `0 12 * * 0`    | Sundays at noon   |
-| `*/30 * * * *`  | Every 30 minutes  |
+| `10 * * * *`    | Every Hour at 10m |
+| `30 * * * *`    | Every Hour at 30m |
 
 4. Check **Include subdirectories** if you want to scan nested folders
 5. Click **Save Configuration** to store your settings

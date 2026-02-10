@@ -3,7 +3,6 @@ use hex;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use sha1::{Digest, Sha1};
-use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
@@ -202,7 +201,7 @@ async fn check_and_upload(app: &tauri::AppHandle, client: &Client, config: &Conf
 }
 
 fn should_run_now(cron_expr: &str) -> bool {
-    // Simple CRON parser - in production use the 'cron' crate
+    // Simple CRON parser - Maybe use something more robust later maybe a crate that already exists
     // This is a simplified version that checks minute, hour, day, month, weekday
     let now = Utc::now();
     let parts: Vec<&str> = cron_expr.split_whitespace().collect();
@@ -259,7 +258,7 @@ async fn upload_directory(
         return Ok(0);
     }
 
-    println!("Found {} files", files.len());
+    // println!("Found {} files", files.len());
 
     // Calculate checksums for all files
     let mut file_checksums = Vec::new();
@@ -277,8 +276,7 @@ async fn upload_directory(
         file_checksums.push((file.clone(), checksum, data));
     }
 
-    // format!("Checked {} files", file_checksums.len());
-    println!("Checked {} files", file_checksums.len());
+    // println!("Checked {} files", file_checksums.len());
 
     // Bulk check which files need to be uploaded
     let checksums_to_check: Vec<String> = file_checksums
@@ -289,9 +287,7 @@ async fn upload_directory(
     let files_to_upload =
         bulk_check_assets(client, config, checksums_to_check, &file_checksums).await?;
 
-    // format!("To Upload {} files", files_to_upload.len());
-    //Print
-    println!("To Upload {} files", files_to_upload.len());
+    // println!("To Upload {} files", files_to_upload.len());
 
     // Upload only the files that don't exist
     let mut uploaded = 0;

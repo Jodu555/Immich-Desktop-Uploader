@@ -1741,6 +1741,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "immich-uploader"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "hex",
+ "reqwest 0.11.27",
+ "serde",
+ "serde_json",
+ "sha1",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-dialog",
+ "tauri-plugin-opener",
+ "tokio",
+]
+
+[[package]]
 name = "indexmap"
 version = "1.9.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4117,23 +4134,6 @@ dependencies = [
  "futf",
  "mac",
  "utf-8",
-]
-
-[[package]]
-name = "test-immich-uploader"
-version = "0.1.0"
-dependencies = [
- "chrono",
- "hex",
- "reqwest 0.11.27",
- "serde",
- "serde_json",
- "sha1",
- "tauri",
- "tauri-build",
- "tauri-plugin-dialog",
- "tauri-plugin-opener",
- "tokio",
 ]
 
 [[package]]

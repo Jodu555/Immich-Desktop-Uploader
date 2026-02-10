@@ -1,7 +1,7 @@
 [package]
-name = "test-immich-uploader"
+name = "immich-uploader"
 version = "0.1.0"
-description = "A Tauri App"
+description = "A Tauri App To Upload Photos To Immich"
 authors = ["you"]
 edition = "2021"
 

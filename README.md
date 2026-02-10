@@ -19,7 +19,7 @@
 
 ---
 
-## ✨ Features
+<h2 id="features">✨ Features</h2>
 
 - 🚀 **Automatic Uploads** - Schedule photo uploads with CRON expressions
 - 📁 **Multi-Directory Support** - Monitor multiple folders simultaneously
@@ -44,7 +44,7 @@
 
 ---
 
-## 🚀 Quick Start
+<h2 id="quick-start">🚀 Quick Start</h2>
 
 ### Prerequisites
 
@@ -77,7 +77,7 @@ This will start the development server and launch the desktop application.
 
 ---
 
-## 📦 Installation
+<h2 id="installation">📦 Installation</h2>
 
 ### Build from Source
 
@@ -85,7 +85,7 @@ See the [Building](#building) section below.
 
 ---
 
-## ⚙️ Configuration
+<h2 id="configuration">⚙️ Configuration</h2>
 
 ### Setting Up Immich Connection
 
@@ -169,7 +169,7 @@ immich-desktop-uploader/
 
 ---
 
-## 📱 Building
+<h2 id="building">📱 Building</h2>
 
 ### Build for Current Platform
 

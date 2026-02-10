@@ -173,6 +173,51 @@ async fn stop_scheduler(state: State<'_, AppState>) -> Result<(), String> {
     Ok(())
 }
 
+#[tauri::command]
+async fn trigger_upload(
+    directory: String,
+    recursive: bool,
+    state: State<'_, AppState>,
+    app: tauri::AppHandle,
+) -> Result<(), String> {
+    let config = {
+        let scheduler = state.scheduler.lock().unwrap();
+        scheduler.config.clone()
+    };
+
+    let config = config.ok_or("No configuration loaded")?;
+
+    let path_config = PathConfig {
+        directory,
+        cron_expressions: vec![],
+        recursive,
+    };
+
+    emit_event(
+        &app,
+        "info",
+        &format!(
+            "Triggering upload for {} (recursive: {})",
+            path_config.directory, path_config.recursive
+        ),
+    );
+
+    match upload_directory(&state.http_client, &config, &path_config).await {
+        Ok(count) => {
+            emit_event(
+                &app,
+                "success",
+                &format!("Uploaded {} files from {}", count, path_config.directory),
+            );
+        }
+        Err(e) => {
+            emit_event(&app, "error", &format!("Upload failed: {}", e));
+        }
+    }
+
+    Ok(())
+}
+
 async fn check_and_upload(app: &tauri::AppHandle, client: &Client, config: &Config) {
     for path_config in &config.paths {
         for cron_expr in &path_config.cron_expressions {
@@ -244,6 +289,7 @@ fn matches_cron_field(field: &str, value: u32) -> bool {
 
     false
 }
+
 async fn upload_directory(
     client: &Client,
     config: &Config,
@@ -511,6 +557,7 @@ pub fn run() {
             status_scheduler,
             start_scheduler,
             stop_scheduler,
+            trigger_upload,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
